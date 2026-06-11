@@ -5,12 +5,10 @@ RUN dnf -y update \
 RUN dnf -y install epel-release \
     && dnf config-manager --disable epel
 RUN dnf -y groupinstall "Base" "Development Tools" \
-    && dnf -y install --enablerepo crb rpmdevtools libxslt libxslt-devel help2man po4a selinux-policy-devel docbook-style-xsl
-RUN dnf -y install --enablerepo epel kernel-rpm-macros elfutils-libelf-devel kernel-devel pandoc kernel-abi-stablelists
-# spatch can not find in epel
-# RUN dnf -y install --enablerepo=powertools,epel coccinelle
+    && dnf -y install --enablerepo crb rpmdevtools libxslt help2man po4a selinux-policy-devel docbook-style-xsl
+RUN dnf -y install --enablerepo epel kernel-rpm-macros elfutils-libelf-devel kernel-devel
 # build spatch from source code
-RUN dnf -y install --enablerepo crb pkgconfig chrpath ocaml ocaml-findlib ocaml-findlib-devel ocaml-ocamldoc
+RUN dnf -y install --enablerepo crb pkgconfig chrpath ocaml ocaml-findlib ocaml-findlib-devel
 RUN dnf -y install --enablerepo epel asciidoctor
 RUN dnf -y install keyutils keyutils-libs-devel
 WORKDIR /root
