@@ -6,7 +6,7 @@ RUN dnf -y install 'dnf-command(config-manager)'
 RUN dnf -y install epel-release jq\
     && dnf config-manager --disable epel epel-modular
 RUN dnf -y groupinstall "Base" "Development Tools" \
-    && dnf -y install --enablerepo powertools rpmdevtools libxslt libxslt-devel pygobject2 help2man po4a selinux-policy-devel
+    && dnf -y install --enablerepo powertools rpmdevtools libxslt libxslt-devel pygobject2 help2man po4a selinux-policy-devel docbook-style-xsl
 RUN dnf -y install --enablerepo powertools kernel-rpm-macros elfutils-libelf-devel kernel-devel kernel-abi-whitelists pandoc
 # spatch released from eple not recent enough, need spatch version >= 1.0.8
 # RUN dnf -y install --enablerepo=powertools,epel coccinelle
@@ -44,6 +44,5 @@ RUN mkdir ${HOME}/Archive \
 
 COPY build.sh .
 COPY version.sh .
-ADD docbook-xsl-1.79.1.tar.gz .
-ENV STYLESHEET_PREFIX=file:///home/builder/docbook-xsl-1.79.1
+ENV STYLESHEET_PREFIX=file:///usr/share/sgml/docbook/xsl-stylesheets
 CMD ["/bin/bash","./build.sh"]

@@ -5,7 +5,7 @@ RUN dnf -y update \
 RUN dnf -y install epel-release \
     && dnf config-manager --disable epel
 RUN dnf -y groupinstall "Base" "Development Tools" \
-    && dnf -y install --enablerepo crb rpmdevtools libxslt libxslt-devel help2man po4a selinux-policy-devel
+    && dnf -y install --enablerepo crb rpmdevtools libxslt libxslt-devel help2man po4a selinux-policy-devel docbook-style-xsl
 RUN dnf -y install --enablerepo epel kernel-rpm-macros elfutils-libelf-devel kernel-devel pandoc kernel-abi-stablelists
 # spatch can not find in epel
 # RUN dnf -y install --enablerepo=powertools,epel coccinelle
@@ -36,6 +36,5 @@ RUN mkdir ${HOME}/Archive \
     && git clone --recursive $(if [ $UTIL_TAG != "latest" ]; then echo -b $UTIL_TAG;fi) https://github.com/LINBIT/drbd-utils.git
 COPY build.sh .
 COPY version.sh .
-ADD docbook-xsl-1.79.1.tar.gz .
-ENV STYLESHEET_PREFIX=file:///home/builder/docbook-xsl-1.79.1
+ENV STYLESHEET_PREFIX=file:///usr/share/sgml/docbook/xsl-stylesheets
 CMD ["/bin/bash","./build.sh"]
