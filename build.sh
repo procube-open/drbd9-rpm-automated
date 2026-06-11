@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -ex
 
 # build drbd-9 package
 cd ~/Archive/drbd
